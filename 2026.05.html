@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fra IT-interesse til IT-jobb</title>
+  <style>
+    body, table, td { font-family: Arial, Helvetica, sans-serif; }
+    .wrapper { width:100% !important; background:${BRAND.bg}; padding:24px 0; }
+    .container { width:600px; max-width:600px; margin:0 auto; background:${BRAND.white}; }
+    .content { padding:24px; }
+    h1, h2, h3 { color:${BRAND.dark}; margin:0 0 12px; }
+    h2 { font-size:22px; }
+    h3 { font-size:18px; margin-top:20px; }
+    p { margin:0 0 12px; line-height:1.5; color:${BRAND.text}; }
+    ul { margin:0 0 12px 20px; padding:0; }
+    li { margin:6px 0; }
+    hr { border:0; border-top:1px solid ${BRAND.border}; margin:16px 0; }
+    .muted { color:${BRAND.muted}; }
+    .btn {
+      display:inline-block; text-decoration:none; font-weight:bold;
+      padding:12px 18px; border-radius:6px; background:${BRAND.primary}; color:${BRAND.white};
+    }
+    .footer { font-size:12px; color:${BRAND.muted}; text-align:center; padding:16px 24px 24px; }
+    .logo-wrap { text-align:center; padding:16px 0 4px; }
+    .logo { max-width:160px; height:auto; display:inline-block; }
+    .emoji { height:18px; width:18px; vertical-align:-3px; margin-right:6px; }
+
+    .intro-box {
+      border:1px solid ${BRAND.border};
+      border-radius:14px;
+      padding:18px;
+      margin:18px 0;
+      background:#f7f9fb;
+    }
+    .intro-title {
+      font-size:24px;
+      line-height:1.15;
+      font-weight:bold;
+      color:${BRAND.dark};
+      margin:0 0 10px;
+    }
+    .journey-box {
+      border:1px solid ${BRAND.border};
+      border-radius:14px;
+      padding:16px;
+      margin:16px 0 18px;
+      background:#ffffff;
+    }
+    .journey-title {
+      font-size:24px;
+      line-height:1.2;
+      font-weight:bold;
+      color:${BRAND.dark};
+      margin:0 0 14px;
+    }
+    .step-table { width:100%; border-collapse:collapse; }
+    .step-cell {
+      width:25%;
+      vertical-align:top;
+      padding:8px 8px 4px;
+      border-right:1px solid ${BRAND.border};
+    }
+    .step-cell:last-child { border-right:0; }
+    .step-number {
+      display:inline-block;
+      width:26px;
+      height:26px;
+      line-height:26px;
+      text-align:center;
+      border-radius:50%;
+      color:#ffffff;
+      font-weight:bold;
+      font-size:14px;
+      margin-bottom:8px;
+    }
+    .step-green { background:#15905b; }
+    .step-blue { background:#155fa8; }
+    .step-purple { background:#6c3aa5; }
+    .step-orange { background:#df7a19; }
+    .step-heading {
+      font-size:15px;
+      font-weight:bold;
+      text-transform:uppercase;
+      margin:0 0 5px;
+    }
+    .green-text { color:#15905b; }
+    .blue-text { color:#155fa8; }
+    .purple-text { color:#6c3aa5; }
+    .orange-text { color:#df7a19; }
+    .step-text {
+      font-size:13px;
+      line-height:1.4;
+      color:${BRAND.text};
+      margin:0;
+    }
+    .result-box {
+      border-left:5px solid #15905b;
+      background:#f1f8f4;
+      padding:14px 16px;
+      margin:16px 0;
+      border-radius:10px;
+    }
+    .path-note {
+      border-left:5px solid #df7a19;
+      background:#fff7e8;
+      padding:14px 16px;
+      margin:14px 0;
+      border-radius:10px;
+    }
+    .offer-box {
+      border:1px solid ${BRAND.border};
+      border-radius:14px;
+      padding:16px;
+      margin:14px 0;
+      background:#ffffff;
+    }
+    .offer-label {
+      display:inline-block;
+      padding:4px 9px;
+      border-radius:20px;
+      background:#e8f4ee;
+      color:#15905b;
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:8px;
+    }
+    .start-heading {
+      margin-top:20px;
+      font-size:19px;
+      color:${BRAND.dark};
+    }
+    .start-heading .step-number { margin-right:8px; vertical-align:-6px; }
+
+    @media (max-width: 640px) {
+      .container { width:100% !important; }
+      .content { padding:18px !important; }
+      .step-cell { display:block; width:100% !important; border-right:0 !important; border-bottom:1px solid ${BRAND.border}; }
+      .step-cell:last-child { border-bottom:0; }
+    }
+  </style>
+</head>
+
+<body style="margin:0; padding:0; background:${BRAND.bg};">
+
+<table role="presentation" class="container" cellpadding="0" cellspacing="0" border="0">
+
+  <tr>
+    <td class="logo-wrap" align="center" style="text-align:center; padding:16px 0 4px;">
+      <a href="https://getacademy.no" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+        <img 
+          src="${BRAND.logo}"
+          alt="GET Academy logo"
+          width="160"
+          style="width:160px; max-width:160px; height:auto; display:block; margin:0 auto; border:0; outline:none; text-decoration:none;"
+        >
+      </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="content">
+
+      <h2>Fra IT-interesse til IT-jobb</h2>
+
+      <p>Hei,</p>
+
+      <p>
+        GET Academy har et helhetlig løp for kandidater som er nysgjerrige på IT og programmering,
+        men som trenger en praktisk og trygg vei videre mot kompetanse, praksis og jobb.
+      </p>
+
+      <p>
+        Vi jobber etter modellen <strong>Start → Fordypning → Praksis → Jobb</strong>, med ulike innganger
+        avhengig av kandidatens situasjon, forkunnskaper og formelle opptaksgrunnlag.
+      </p>
+
+      <div class="journey-box">
+        <div class="journey-title">Fra IT-interesse til IT-jobb</div>
+        <table role="presentation" class="step-table" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td class="step-cell">
+              <span class="step-number step-green">1</span>
+              <p class="step-heading green-text">Start</p>
+              <p class="step-text">Grunnleggende programmering og IT-utvikling.</p>
+            </td>
+            <td class="step-cell">
+              <span class="step-number step-blue">2</span>
+              <p class="step-heading blue-text">Fordypning</p>
+              <p class="step-text">Videre retning innen frontend eller backend.</p>
+            </td>
+            <td class="step-cell">
+              <span class="step-number step-purple">3</span>
+              <p class="step-heading purple-text">Praksis</p>
+              <p class="step-text">Vi jobber for å finne relevant praksis i bedrift.</p>
+            </td>
+            <td class="step-cell">
+              <span class="step-number step-orange">4</span>
+              <p class="step-heading orange-text">Jobb</p>
+              <p class="step-text">Målet er overgang til ordinær jobb som IT-utvikler.</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="result-box">
+        <p><strong>8 kandidater</strong> har kommet ut i praksis så langt i år.</p>
+        <p><strong>Alle som har fullført praksis i 2026, har gått direkte over i jobb.</strong></p>
+      </div>
+
+      <hr>
+
+      <h3 class="start-heading"><span class="step-number step-green">1</span><span class="green-text">Start</span> – neste mulighet fra 10. august</h3>
+
+      <p>
+        Første steg i løpet er grunnleggende programmering og IT-utvikling. Her finnes det to hovedveier inn:
+        <strong>Start IT</strong> og fagskoleutdanningen <strong>Introduksjon til programmering og IT-utvikling</strong>.
+      </p>
+
+      <div class="offer-box">
+        <span class="offer-label">Kurs</span>
+        <h3 style="margin-top:0;">Start IT</h3>
+        <ul>
+          <li>Åpent for alle</li>
+          <li>Oppstart 10. august</li>
+          <li>Pris: 63&nbsp;000 kr</li>
+          <li>Passer for kandidater som ikke oppfyller opptakskrav til fagskole</li>
+          <li>Kan tas som fullt løp eller modulvis</li>
+        </ul>
+      </div>
+
+      <div class="offer-box">
+        <span class="offer-label">Fagskoleutdanning</span>
+        <h3 style="margin-top:0;">Introduksjon til programmering og IT-utvikling</h3>
+        <ul>
+          <li>Gir studiepoeng</li>
+          <li>Oppstart 10. august</li>
+          <li>Egenbetaling: 5&nbsp;000 kr</li>
+          <li>Har formelle opptakskrav</li>
+          <li>Faglig innhold tilsvarer Start IT-løpet</li>
+        </ul>
+      </div>
+
+      <div class="path-note">
+        <p>
+          <strong>Har kandidaten opptaksgrunnlag?</strong> Da bør fagskoleutdanningen vurderes først.
+          <br>
+          <strong>Har kandidaten ikke opptaksgrunnlag?</strong> Da kan Start IT eller realkompetansevei være aktuelt.
+        </p>
+      </div>
+
+      <hr>
+
+      <h3><span class="step-number step-green">1</span> Modulvis Start IT / realkompetansevei</h3>
+
+      <p>
+        Det er også mulig å starte med første del av Start IT. Dette kan være aktuelt for kandidater som ønsker
+        å teste retningen mer forpliktende, eller som trenger realkompetanse for å søke seg inn på fagskole senere.
+      </p>
+
+      <ul>
+        <li>Første del varer 7 uker</li>
+        <li>Pris: 21&nbsp;000 kr</li>
+        <li>Kan gi grunnlag for å søke opptak til fagskole via realkompetanse</li>
+        <li>Resten av Start IT kan tas videre modulvis</li>
+      </ul>
+
+      <p class="muted">
+        Realkompetanse vurderes av hver enkelt fagskole. Kandidaten må fylle minst 23 år i opptaksåret.
+      </p>
+
+      <hr>
+
+      <h3><span class="step-number step-blue">2</span> Fordypning våren 2027</h3>
+
+      <p>
+        Etter startfasen kan kandidaten gå videre til fordypning. Målet er å tilby to retninger våren 2027:
+        <strong>frontend</strong> og <strong>backend</strong>.
+      </p>
+
+      <ul>
+        <li><strong>Frontend</strong> er etablert som fagskoleutdanning og har vært kjørt flere ganger</li>
+        <li><strong>Backend</strong> har vært kjørt som kurs</li>
+        <li>Vi forventer å kunne tilby backend som fagskoleutdanning våren 2027</li>
+        <li>Finansiering/driftsstøtte er ikke endelig avklart</li>
+      </ul>
+
+      <hr>
+
+      <h3><span class="step-number step-purple">3</span> Praksis og <span class="step-number step-orange">4</span> jobb</h3>
+
+      <p>
+        Etter start og fordypning jobber GET Academy for å finne relevant praksisbedrift. Målet er praksisoppstart
+        august 2027, eller så snart som mulig etterpå.
+      </p>
+
+      <ul>
+        <li>Praksis har ikke kostnad for kandidaten</li>
+        <li>Vi følger opp både kandidat og bedrift</li>
+        <li>I noen tilfeller kan det også være mulig å gå direkte fra Start IT eller Intro til praksis, hvis vi ser en god match med en bedrift</li>
+      </ul>
+
+      <p>
+        Vi kan ikke garantere praksisplass, men vi jobber aktivt med å finne relevante bedrifter når kandidaten er klar.
+      </p>
+
+      <hr>
+
+      <div class="offer-box" style="border-color:#15905b; background:#f7fbf8;">
+        <h3 style="margin-top:0; color:#15905b;">Gratis introduksjonskurs</h3>
+        <p>
+          Vi har også fått spørsmål om vi kommer til å arrangere flere gratiskurs. Det gjør vi.
+          Gratiskurset er et lavterskeltilbud direkte til deltakere som ønsker å teste om koding kan være noe for dem.
+        </p>
+        <p>
+          Kurset krever ingen bestilling fra NAV; deltakeren melder seg på selv via nettsiden vår.
+        </p>
+        <p>
+          <strong>Informasjon:</strong><br>
+          <a href="https://getacademy.no/kvalifiseringskurs" target="_blank">https://getacademy.no/kvalifiseringskurs</a>
+        </p>
+      </div>
+
+      <hr>
+
+      <h3><img class="emoji" src="${E.phone}" alt="" width="18" height="18"> Kontakt</h3>
+
+      <p>
+        <strong>Anita Endresen Rowe</strong><br>
+        <a href="mailto:anita@getacademy.no">anita@getacademy.no</a><br>
+        936&nbsp;23&nbsp;930
+      </p>
+
+      <p>
+        Ta gjerne kontakt hvis dere har spørsmål om hvilken vei som kan passe for en kandidat.
+      </p>
+
+      <p>Vennlig hilsen,<br>GET Academy</p>
+
+    </td>
+  </tr>
+
+  <tr>
+    <td class="footer">
+      Les mer om oss her: <a target="_blank" rel="noopener noreferrer" href="https://getacademy.no/">getacademy.no</a>
+    </td>
+  </tr>
+
+</table>
+</body>
+</html>
