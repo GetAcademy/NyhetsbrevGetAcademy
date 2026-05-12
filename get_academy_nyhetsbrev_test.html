@@ -3,411 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Test nyhetsbrev – GET Academy</title>
+  <title>Test nyhetsbrev inline – GET Academy</title>
   <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #dfe5ea;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .devbar {
-      max-width: 900px;
-      margin: 0 auto 14px;
-      padding: 12px 16px;
-      background: #071b33;
-      color: white;
-      border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .devbar strong {
-      color: #9ed9b5;
-    }
-
-    iframe {
-      width: 100%;
-      max-width: 900px;
-      min-height: 1800px;
-      display: block;
-      margin: 0 auto;
-      border: 0;
-      background: white;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
+    body{margin:0;padding:20px;background:#dfe5ea;font-family:Arial,Helvetica,sans-serif}
+    .devbar{max-width:900px;margin:0 auto 14px;padding:12px 16px;background:#071b33;color:white;border-radius:8px;font-size:14px;line-height:1.4}
+    .devbar strong{color:#9ed9b5} iframe{width:100%;max-width:900px;min-height:1900px;display:block;margin:0 auto;border:0;background:white;box-shadow:0 8px 24px rgba(0,0,0,.15)} code{color:#dbeafe}
   </style>
 </head>
 <body>
-  <iframe id="preview" title="Nyhetsbrev-preview"></iframe>
+<div class="devbar"><strong>Testvisning:</strong> Inline-stylet e-postversjon som tåler Gmail-videresending og print bedre. Kopier <code>htmlBody</code> tilbake til Google Apps Script når du er fornøyd.</div>
+<iframe id="preview" title="Nyhetsbrev-preview"></iframe>
+<script>
+const subject = "Fra IT-interesse til IT-jobb";
+const textFallback = "Se denne e-posten i en HTML-kompatibel e-postklient.\n" + "Kvalifiseringskurs: https://getacademy.no/kvalifiseringskurs";
+const BRAND = { primary:"#0ea5e9", dark:"#0f172a", text:"#111827", muted:"#6b7280", border:"#e5e7eb", bg:"#ddd", white:"#ffffff", logo:"https://getacademy.no/hubfs/GET_RGB_logo-01-2.png" };
+const E = { phone:"https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4de.png" };
 
-  <script>
-    const subject = "Fra IT-interesse til IT-jobb";
-
-    const textFallback =
-      "Se denne e-posten i en HTML-kompatibel e-postklient.\\n" +
-      "Kvalifiseringskurs: https://getacademy.no/kvalifiseringskurs";
-
-    const BRAND = {
-      primary: "#0ea5e9",
-      dark: "#0f172a",
-      text: "#111827",
-      muted: "#6b7280",
-      border: "#e5e7eb",
-      bg: "#ddd",
-      white: "#ffffff",
-      logo: "https://getacademy.no/hubfs/GET_RGB_logo-01-2.png"
-    };
-
-    // Twemoji PNG (72x72) – skaleres ned i CSS
-    const E = {
-      target: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f3af.png",
-      calendar: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f5d3.png",
-      teacher: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f469-200d-1f3eb.png",
-      puzzle: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f9e9.png",
-      memo: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4dd.png",
-      phone: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4de.png",
-      check: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/2705.png"
-    };
-
-    const htmlBody = `<!doctype html>
+const emailStart = `<!doctype html>
 <html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <meta name="x-apple-disable-message-reformatting">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fra IT-interesse til IT-jobb</title>
-  <style>
-    body, table, td { font-family: Arial, Helvetica, sans-serif; }
-    .wrapper { width:100% !important; background:${BRAND.bg}; padding:24px 0; }
-    .container { width:600px; max-width:600px; margin:0 auto; background:${BRAND.white}; }
-    .content { padding:24px; }
-    h1, h2, h3 { color:${BRAND.dark}; margin:0 0 12px; }
-    h2 { font-size:22px; }
-    h3 { font-size:18px; margin-top:20px; }
-    p { margin:0 0 12px; line-height:1.5; color:${BRAND.text}; }
-    ul { margin:0 0 12px 20px; padding:0; }
-    li { margin:6px 0; }
-    hr { border:0; border-top:1px solid ${BRAND.border}; margin:16px 0; }
-    .muted { color:${BRAND.muted}; }
-    .btn {
-      display:inline-block; text-decoration:none; font-weight:bold;
-      padding:12px 18px; border-radius:6px; background:${BRAND.primary}; color:${BRAND.white};
-    }
-    .footer { font-size:12px; color:${BRAND.muted}; text-align:center; padding:16px 24px 24px; }
-    .logo-wrap { text-align:center; padding:16px 0 4px; }
-    .logo { max-width:160px; height:auto; display:inline-block; }
-    .emoji { height:18px; width:18px; vertical-align:-3px; margin-right:6px; }
+<head><meta charset="UTF-8"><meta name="x-apple-disable-message-reformatting"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Fra IT-interesse til IT-jobb</title></head>
+<body style="margin:0;padding:0;background:${BRAND.bg};font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;background:${BRAND.bg};margin:0;padding:0;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;"><tr><td align="center" style="padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;max-width:600px;background:${BRAND.white};margin:0 auto;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+<tr><td align="center" style="text-align:center;padding:16px 0 4px;font-family:Arial,Helvetica,sans-serif;"><a href="https://getacademy.no" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><img src="${BRAND.logo}" alt="GET Academy logo" width="160" style="width:160px;max-width:160px;height:auto;display:block;margin:0 auto;border:0;outline:none;text-decoration:none;"></a></td></tr>
+<tr><td style="padding:24px;font-family:Arial,Helvetica,sans-serif;">
+<h2 style="color:${BRAND.dark};margin:0 0 12px;font-size:22px;line-height:1.25;font-family:Arial,Helvetica,sans-serif;">Fra IT-interesse til IT-jobb</h2>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Hei,</p>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">GET Academy har et helhetlig løp for kandidater som er nysgjerrige på IT og programmering, men som trenger en praktisk og trygg vei videre mot kompetanse, praksis og jobb.</p>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Vi jobber etter modellen <strong>Start → Fordypning → Praksis → Jobb</strong>, med ulike innganger avhengig av kandidatens situasjon, forkunnskaper og formelle opptaksgrunnlag.</p>
 
-    .journey-box {
-      border:1px solid ${BRAND.border};
-      border-radius:14px;
-      padding:16px;
-      margin:16px 0 18px;
-      background:#ffffff;
-    }
-    .journey-title {
-      font-size:24px;
-      line-height:1.2;
-      font-weight:bold;
-      color:${BRAND.dark};
-      margin:0 0 14px;
-    }
-    .step-table { width:100%; border-collapse:collapse; }
-    .step-cell {
-      width:25%;
-      vertical-align:top;
-      padding:8px 8px 4px;
-      border-right:1px solid ${BRAND.border};
-    }
-    .step-cell:last-child { border-right:0; }
-    .step-number {
-      display:inline-block;
-      width:26px;
-      height:26px;
-      line-height:26px;
-      text-align:center;
-      border-radius:50%;
-      color:#ffffff;
-      font-weight:bold;
-      font-size:14px;
-      margin-bottom:8px;
-    }
-    .step-green { background:#15905b; }
-    .step-blue { background:#155fa8; }
-    .step-purple { background:#6c3aa5; }
-    .step-orange { background:#df7a19; }
-    .step-heading {
-      font-size:15px;
-      font-weight:bold;
-      text-transform:uppercase;
-      margin:0 0 5px;
-    }
-    .green-text { color:#15905b; }
-    .blue-text { color:#155fa8; }
-    .purple-text { color:#6c3aa5; }
-    .orange-text { color:#df7a19; }
-    .step-text {
-      font-size:13px;
-      line-height:1.4;
-      color:${BRAND.text};
-      margin:0;
-    }
-    .result-box {
-      border-left:5px solid #15905b;
-      background:#f1f8f4;
-      padding:14px 16px;
-      margin:16px 0;
-      border-radius:10px;
-    }
-    .path-note {
-      border-left:5px solid #df7a19;
-      background:#fff7e8;
-      padding:14px 16px;
-      margin:14px 0;
-      border-radius:10px;
-    }
-    .offer-box {
-      border:1px solid ${BRAND.border};
-      border-radius:14px;
-      padding:16px;
-      margin:14px 0;
-      background:#ffffff;
-    }
-    .offer-label {
-      display:inline-block;
-      padding:4px 9px;
-      border-radius:20px;
-      background:#e8f4ee;
-      color:#15905b;
-      font-size:12px;
-      font-weight:bold;
-      margin-bottom:8px;
-    }
-    .start-heading {
-      margin-top:20px;
-      font-size:19px;
-      color:${BRAND.dark};
-    }
-    .start-heading .step-number { margin-right:8px; vertical-align:-6px; }
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border:1px solid ${BRAND.border};border-radius:14px;background:#fff;margin:16px 0 18px;border-collapse:separate;font-family:Arial,Helvetica,sans-serif;">
+<tr><td colspan="4" style="padding:16px 16px 6px;font-size:24px;line-height:1.2;font-weight:bold;color:${BRAND.dark};font-family:Arial,Helvetica,sans-serif;">Fra IT-interesse til IT-jobb</td></tr>
+<tr>
+<td width="25%" valign="top" style="width:25%;vertical-align:top;padding:8px 8px 14px 16px;border-right:1px solid ${BRAND.border};font-family:Arial,Helvetica,sans-serif;"><div style="width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#15905b;font-weight:bold;font-size:14px;margin-bottom:8px;">1</div><p style="font-size:15px;font-weight:bold;text-transform:uppercase;margin:0 0 5px;color:#15905b;line-height:1.25;">Start</p><p style="font-size:13px;line-height:1.4;color:${BRAND.text};margin:0;">Grunnleggende programmering og IT-utvikling.</p></td>
+<td width="25%" valign="top" style="width:25%;vertical-align:top;padding:8px 8px 14px;border-right:1px solid ${BRAND.border};font-family:Arial,Helvetica,sans-serif;"><div style="width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#155fa8;font-weight:bold;font-size:14px;margin-bottom:8px;">2</div><p style="font-size:15px;font-weight:bold;text-transform:uppercase;margin:0 0 5px;color:#155fa8;line-height:1.25;">Fordypning</p><p style="font-size:13px;line-height:1.4;color:${BRAND.text};margin:0;">Videre retning innen frontend eller backend.</p></td>
+<td width="25%" valign="top" style="width:25%;vertical-align:top;padding:8px 8px 14px;border-right:1px solid ${BRAND.border};font-family:Arial,Helvetica,sans-serif;"><div style="width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#6c3aa5;font-weight:bold;font-size:14px;margin-bottom:8px;">3</div><p style="font-size:15px;font-weight:bold;text-transform:uppercase;margin:0 0 5px;color:#6c3aa5;line-height:1.25;">Praksis</p><p style="font-size:13px;line-height:1.4;color:${BRAND.text};margin:0;">Vi jobber for å finne relevant praksis i bedrift.</p></td>
+<td width="25%" valign="top" style="width:25%;vertical-align:top;padding:8px 16px 14px 8px;font-family:Arial,Helvetica,sans-serif;"><div style="width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#df7a19;font-weight:bold;font-size:14px;margin-bottom:8px;">4</div><p style="font-size:15px;font-weight:bold;text-transform:uppercase;margin:0 0 5px;color:#df7a19;line-height:1.25;">Jobb</p><p style="font-size:13px;line-height:1.4;color:${BRAND.text};margin:0;">Målet er overgang til ordinær jobb som IT-utvikler.</p></td>
+</tr></table>
 
-    @media (max-width: 640px) {
-      .container { width:100% !important; }
-      .content { padding:18px !important; }
-      .step-cell { display:block; width:100% !important; border-right:0 !important; border-bottom:1px solid ${BRAND.border}; }
-      .step-cell:last-child { border-bottom:0; }
-    }
-  </style>
-</head>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-left:5px solid #15905b;background:#f1f8f4;margin:16px 0;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;"><tr><td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;"><p style="margin:0 0 8px;line-height:1.5;color:${BRAND.text};"><strong>8 kandidater</strong> har kommet ut i praksis så langt i år.</p><p style="margin:0;line-height:1.5;color:${BRAND.text};"><strong>Alle som har fullført praksis i 2026, har gått direkte over i jobb.</strong></p></td></tr></table>
+<hr style="border:0;border-top:1px solid ${BRAND.border};margin:16px 0;">
 
-<body style="margin:0; padding:0; background:${BRAND.bg};">
+<h3 style="color:${BRAND.dark};margin:20px 0 12px;font-size:19px;line-height:1.25;font-family:Arial,Helvetica,sans-serif;"><span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#15905b;font-weight:bold;font-size:14px;margin-right:8px;">1</span><span style="color:#15905b;">Start</span> – neste mulighet fra 10. august</h3>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Første steg i løpet er grunnleggende programmering og IT-utvikling. Her finnes det to hovedveier inn: <strong>Start IT</strong> og fagskoleutdanningen <strong>Introduksjon til programmering og IT-utvikling</strong>.</p>
 
-<table role="presentation" class="container" cellpadding="0" cellspacing="0" border="0">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border:1px solid ${BRAND.border};border-radius:14px;background:#fff;margin:14px 0;border-collapse:separate;font-family:Arial,Helvetica,sans-serif;"><tr><td style="padding:16px;font-family:Arial,Helvetica,sans-serif;"><div style="display:inline-block;padding:4px 9px;border-radius:20px;background:#e8f4ee;color:#15905b;font-size:12px;font-weight:bold;margin-bottom:8px;">Kurs</div><h3 style="color:${BRAND.dark};margin:0 0 12px;font-size:18px;line-height:1.25;">Start IT</h3><ul style="margin:0 0 0 20px;padding:0;color:${BRAND.text};line-height:1.5;"><li style="margin:6px 0;">Åpent for alle</li><li style="margin:6px 0;">Oppstart 10. august</li><li style="margin:6px 0;">Pris: 63&nbsp;000 kr</li><li style="margin:6px 0;">Passer for kandidater som ikke oppfyller opptakskrav til fagskole</li><li style="margin:6px 0;">Kan tas som fullt løp eller modulvis</li></ul></td></tr></table>
 
-  <tr>
-    <td class="logo-wrap" align="center" style="text-align:center; padding:16px 0 4px;">
-      <a href="https://getacademy.no" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-        <img 
-          src="${BRAND.logo}"
-          alt="GET Academy logo"
-          width="160"
-          style="width:160px; max-width:160px; height:auto; display:block; margin:0 auto; border:0; outline:none; text-decoration:none;"
-        >
-      </a>
-    </td>
-  </tr>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border:1px solid ${BRAND.border};border-radius:14px;background:#fff;margin:14px 0;border-collapse:separate;font-family:Arial,Helvetica,sans-serif;"><tr><td style="padding:16px;font-family:Arial,Helvetica,sans-serif;"><div style="display:inline-block;padding:4px 9px;border-radius:20px;background:#e8f4ee;color:#15905b;font-size:12px;font-weight:bold;margin-bottom:8px;">Fagskoleutdanning</div><h3 style="color:${BRAND.dark};margin:0 0 12px;font-size:18px;line-height:1.25;">Introduksjon til programmering og IT-utvikling</h3><ul style="margin:0 0 0 20px;padding:0;color:${BRAND.text};line-height:1.5;"><li style="margin:6px 0;">Gir studiepoeng</li><li style="margin:6px 0;">Oppstart 10. august</li><li style="margin:6px 0;">Egenbetaling: 5&nbsp;000 kr</li><li style="margin:6px 0;">Har formelle opptakskrav</li><li style="margin:6px 0;">Faglig innhold tilsvarer Start IT-løpet</li></ul></td></tr></table>
 
-  <tr>
-    <td class="content">
-      <p>Hei,</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-left:5px solid #df7a19;background:#fff7e8;margin:14px 0;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;"><tr><td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;"><p style="margin:0;line-height:1.5;color:${BRAND.text};"><strong>Har kandidaten opptaksgrunnlag?</strong> Da bør fagskoleutdanningen vurderes først.<br><strong>Har kandidaten ikke opptaksgrunnlag?</strong> Da kan Start IT eller realkompetansevei være aktuelt.</p></td></tr></table>
+<hr style="border:0;border-top:1px solid ${BRAND.border};margin:16px 0;">
 
-      <p>
-        GET Academy har et helhetlig løp for kandidater som er nysgjerrige på IT og programmering,
-        men som trenger en praktisk og trygg vei videre mot kompetanse, praksis og jobb.
-      </p>
+<h3 style="color:${BRAND.dark};margin:20px 0 12px;font-size:18px;line-height:1.25;font-family:Arial,Helvetica,sans-serif;"><span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#15905b;font-weight:bold;font-size:14px;margin-right:8px;">1</span> Realkompetansekurs / modulvis Start IT</h3>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Høsten 2026 tilbyr vi realkompetansekurs for dem som er minst 23 år, men mangler realkompetanse for å komme inn på fagskoleutdanning innen IT-utvikling. <strong>Kursbevis fra dette kan også brukes som grunnlag for å søke opptak til andre fagskoler enn Fagskolen GET Academy.</strong></p>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Første realkompetansekurs starter 10. august, varer 7 uker og koster 21&nbsp;000 kr. Dette går parallelt med Start IT. Etter fullført, kan man:</p>
+<ul style="margin:0 0 12px 20px;padding:0;color:${BRAND.text};line-height:1.5;"><li style="margin:6px 0;">søke seg til annen fagskoleutdanning med realkompetanse</li><li style="margin:6px 0;">søke seg til vår fagskoleutdanning Introduksjon til programmering og IT-utvikling – med oppstart i januar 2027</li><li style="margin:6px 0;">fortsette videre i Start IT-løpet modulvis – 21&nbsp;000 kr per modul, der tre moduler totalt utgjør hele Start IT</li></ul>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Det andre realkompetansekurset starter i oktober eller november og gir også mulighet til å søke seg videre til fagskoleutdanning fra januar. Mer informasjon kommer senere.</p>
 
-      <p>
-        Vi jobber etter modellen <strong>Start → Fordypning → Praksis → Jobb</strong>, med ulike innganger
-        avhengig av kandidatens formelle opptaksgrunnlag.
-      </p>
+<hr style="border:0;border-top:1px solid ${BRAND.border};margin:16px 0;">
+<h3 style="color:${BRAND.dark};margin:20px 0 12px;font-size:18px;line-height:1.25;font-family:Arial,Helvetica,sans-serif;"><span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#155fa8;font-weight:bold;font-size:14px;margin-right:8px;">2</span> Fordypning våren 2027</h3>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Våren 2027 kan kandidatene gå videre og velge fordypning innen <strong>frontend</strong> eller <strong>backend</strong>. Frontend er allerede etablert som fagskoleutdanning med driftsstøtte som gir egenbetaling på 5&nbsp;000 kr, mens Backend kjøres som kurs inntil NOKUT har godkjent det som fagskoleutdanning. Vi forventer å kunne tilby backend som fagskoleutdanning våren 2027.</p>
 
-      <div class="journey-box">
-        <div class="journey-title">Fra IT-interesse til IT-jobb</div>
-        <table role="presentation" class="step-table" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td class="step-cell">
-              <span class="step-number step-green">1</span>
-              <p class="step-heading green-text">Start</p>
-              <p class="step-text">Grunnleggende programmering og IT-utvikling.</p>
-            </td>
-            <td class="step-cell">
-              <span class="step-number step-blue">2</span>
-              <p class="step-heading blue-text">Fordypning</p>
-              <p class="step-text">Videre retning innen frontend eller backend.</p>
-            </td>
-            <td class="step-cell">
-              <span class="step-number step-purple">3</span>
-              <p class="step-heading purple-text">Praksis</p>
-              <p class="step-text">Vi jobber for å finne relevant praksis i bedrift.</p>
-            </td>
-            <td class="step-cell">
-              <span class="step-number step-orange">4</span>
-              <p class="step-heading orange-text">Jobb</p>
-              <p class="step-text">Målet er overgang til ordinær jobb som IT-utvikler.</p>
-            </td>
-          </tr>
-        </table>
-      </div>
+<hr style="border:0;border-top:1px solid ${BRAND.border};margin:16px 0;">
+<h3 style="color:${BRAND.dark};margin:20px 0 12px;font-size:18px;line-height:1.25;font-family:Arial,Helvetica,sans-serif;"><span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#6c3aa5;font-weight:bold;font-size:14px;margin-right:8px;">3</span> Praksis og <span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;color:#fff;background:#df7a19;font-weight:bold;font-size:14px;margin:0 8px;">4</span> jobb</h3>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Etter start og fordypning jobber GET Academy for å finne relevant praksisbedrift. Målet er praksisoppstart august 2027, eller så snart som mulig etterpå.</p>
+<ul style="margin:0 0 12px 20px;padding:0;color:${BRAND.text};line-height:1.5;"><li style="margin:6px 0;">Praksis har ikke kostnad for kandidaten</li><li style="margin:6px 0;">Vi følger opp både kandidat og bedrift</li><li style="margin:6px 0;">I noen tilfeller kan det også være mulig å gå direkte fra Start IT eller Intro til praksis, hvis vi ser en god match med en bedrift</li></ul>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Vi kan ikke garantere praksisplass, men vi jobber aktivt med å finne relevante bedrifter når kandidaten er klar.</p>
 
-      <div class="result-box">
-        <p><strong>Alle som har fullført praksis så langt i 2026, har gått direkte over i jobb!</strong></p>
-        <p>8 nye kandidater har kommet ut i praksis så langt i år.</p>
-      </div>
+<hr style="border:0;border-top:1px solid ${BRAND.border};margin:16px 0;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border:1px solid #15905b;border-radius:14px;background:#f7fbf8;margin:14px 0;border-collapse:separate;font-family:Arial,Helvetica,sans-serif;"><tr><td style="padding:16px;font-family:Arial,Helvetica,sans-serif;"><h3 style="color:#15905b;margin:0 0 12px;font-size:18px;line-height:1.25;">Gratis introduksjonskurs</h3><p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};">Vi har også fått spørsmål om vi kommer til å arrangere flere gratiskurs. Det gjør vi. Gratiskurset er et lavterskeltilbud direkte til deltakere som ønsker å teste om koding kan være noe for dem.</p><p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};">Kurset krever ingen bestilling fra NAV; deltakeren melder seg på selv via nettsiden vår.</p><p style="margin:0;line-height:1.5;color:${BRAND.text};"><strong>Informasjon:</strong><br><a href="https://getacademy.no/kvalifiseringskurs" target="_blank">https://getacademy.no/kvalifiseringskurs</a></p></td></tr></table>
 
-      <hr>
+<hr style="border:0;border-top:1px solid ${BRAND.border};margin:16px 0;">
+<h3 style="color:${BRAND.dark};margin:20px 0 12px;font-size:18px;line-height:1.25;font-family:Arial,Helvetica,sans-serif;"><img src="${E.phone}" alt="" width="18" height="18" style="height:18px;width:18px;vertical-align:-3px;margin-right:6px;border:0;"> Kontakt</h3>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;"><strong>Anita Endresen Rowe</strong><br><a href="mailto:anita@getacademy.no">anita@getacademy.no</a><br>936&nbsp;23&nbsp;930</p>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Ta gjerne kontakt hvis dere har spørsmål om hvilken vei som kan passe for en kandidat.</p>
+<p style="margin:0 0 12px;line-height:1.5;color:${BRAND.text};font-family:Arial,Helvetica,sans-serif;">Vennlig hilsen,<br>GET Academy</p>
+</td></tr>
+<tr><td style="font-size:12px;color:${BRAND.muted};text-align:center;padding:16px 24px 24px;font-family:Arial,Helvetica,sans-serif;">Les mer om oss her: <a target="_blank" rel="noopener noreferrer" href="https://getacademy.no/">getacademy.no</a></td></tr>
+</table></td></tr></table>`;
 
-      <h3 class="start-heading"><span class="step-number step-green">1</span><span class="green-text">Start</span> – neste mulighet fra 10. august</h3>
-
-      <p>
-        Første steg i løpet er grunnleggende programmering og IT-utvikling. Her finnes det to hovedveier inn:
-        <strong>Start IT</strong> og fagskoleutdanningen <strong>Introduksjon til programmering og IT-utvikling</strong>.
-      </p>
-
-      <div class="offer-box">
-        <span class="offer-label">Kurs</span>
-        <h3 style="margin-top:0;">Start IT</h3>
-        <ul>
-          <li>Åpent for alle</li>
-          <li>Oppstart 10. august</li>
-          <li>Pris: 63&nbsp;000 kr</li>
-          <li>Passer for kandidater som ikke oppfyller opptakskrav til fagskole</li>
-          <li>Kan tas som fullt løp eller modulvis - modul 1 av 3 er da på 7 uker og koster 21 000kr</li>
-        </ul>
-      </div>
-
-      <div class="offer-box">
-        <span class="offer-label">Fagskoleutdanning</span>
-        <h3 style="margin-top:0;">Introduksjon til programmering og IT-utvikling</h3>
-        <ul>
-          <li>Gir 30 studiepoeng</li>
-          <li>Oppstart 10. august</li>
-          <li>Egenbetaling: 5&nbsp;000 kr</li>
-          <li>Har formelle opptakskrav</li>
-          <li>Faglig innhold tilsvarer Start IT-løpet</li>
-        </ul>
-      </div>
-
-      <div class="path-note">
-        <p>Kandidater med IT fra VGS eller realkompetanse og alder minst 23 år bør vurdere fagskoleutdanningen først.
-          Ellers er <strong>Start IT åpent for alle</strong> og gir samme mulighet for å gå videre til fordypning, praksis og jobb!
-        </p>
-      </div>
-
-      <hr>
-
-      <h3><span class="step-number step-green">1 </span> Realkompetansekurs / modulvis Start IT</h3>
-
-      <p>
-        Høsten 2026 tilbyr vi to <em>realkompetansekurs</em> for dem som er minst 23 år men mangler realkompetanse for 
-        å komme inn på fagskoleutdanning innen IT-utvikling. <strong>Kursbevis fra dette kan også brukes som grunnlag 
-          for å søke opptak til andre fagskoler enn Fagskolen GET Academy</strong>.
-      </p>
-
-      <p>
-        Første realkompetansekurs starter 10. august, varer i 7 uker og koster 21 000 kr. 
-        Dette går parallelt med Start IT. Etter fullført, kan man:
-        <ul>
-          <li>søke seg til annen fagskoleutdanning med realkompetanse</li>
-          <li>søke seg til vår fagskoleutdanning Introduksjon til programmering og IT-utvikling - med oppstart i januar 2027</li>
-          <li>fortsette videre i Start IT-løpet modulvis - 21 000kr per modul, og tre moduler totalt</li>
-        </ul>        
-      </p>
-
-      <p>
-        Det andre Realkompetansekurset starter i oktober eller november og gir også mulighet til å søke seg videre til 
-        fagskoleutdanning fra januar. Mer informasjon kommer senere. 
-      </p>
-
-      <hr>
-
-      <h3><span class="step-number step-blue">2</span> Fordypning våren 2027</h3>
-
-      <p>
-        Våren 2027 kan kandidatene gå videre og velge fordypning innen 
-        <strong>frontend</strong> eller <strong>backend</strong>. Frontend er allerede etablert som fagskoleutdanning
-        med driftsstøtte som gir egenbetaling på 5 000kr, mens  
-        Backend kjøres som kurs inntil Nokut har godkjent det som fagskoleutdanning. Vi forventer å kunne tilby backend som fagskoleutdanning. De har lovet behandling i løpet av 2026. 
-        
-      </p>      
-
-      <hr>
-
-      <h3><span class="step-number step-purple">3</span> Praksis og <span class="step-number step-orange">4</span> jobb</h3>
-
-      <p>
-        Etter start og fordypning jobber GET Academy for å finne relevant praksisbedrift. Målet er praksisoppstart
-        august 2027, eller så snart som mulig etterpå.
-      </p>
-
-      <ul>
-        <li>Praksis har ikke kostnad for kandidaten</li>
-        <li>Vi følger opp både kandidat og bedrift</li>
-        <li>I noen tilfeller kan det også være mulig å gå direkte fra Start IT eller Intro til praksis, hvis vi ser en god match med en bedrift</li>
-      </ul>
-
-      <p>
-        Vi kan ikke garantere praksisplass, men vi jobber aktivt med å finne relevante bedrifter når kandidaten er klar.
-      </p>
-
-      <hr>
-
-      <div class="offer-box" style="border-color:#15905b; background:#f7fbf8;">
-        <h3 style="margin-top:0; color:#15905b;">Gratis introduksjonskurs</h3>
-        <p>
-          Vi har også fått spørsmål om vi kommer til å arrangere flere gratiskurs. Det gjør vi.
-          Gratiskurset er et lavterskeltilbud direkte til deltakere som ønsker å teste om koding kan være noe for dem.
-        </p>
-        <p>
-          Kurset krever ingen bestilling fra NAV; deltakeren melder seg på selv via nettsiden vår.
-        </p>
-        <p>
-          <strong>Informasjon:</strong><br>
-          <a href="https://getacademy.no/kvalifiseringskurs" target="_blank">getacademy.no/kvalifiseringskurs</a>
-        </p>
-      </div>
-
-      <hr>
-
-      <h3><img class="emoji" src="${E.phone}" alt="" width="18" height="18"> Kontakt</h3>
-
-      <p>
-        <strong>Anita Endresen Rowe</strong><br>
-        <a href="mailto:anita@getacademy.no">anita@getacademy.no</a><br>
-        936&nbsp;23&nbsp;930
-      </p>
-
-      <p>
-        Ta gjerne kontakt hvis dere har spørsmål om hvilken vei som kan passe for en kandidat.
-      </p>
-
-      <p>Vennlig hilsen,<br>GET Academy</p>
-
-    </td>
-  </tr>
-
-  <tr>
-    <td class="footer">
-      Les mer om oss her: <a target="_blank" rel="noopener noreferrer" href="https://getacademy.no/">getacademy.no</a>
-    </td>
-  </tr>
-
-</table>
-</body>
-</html>`;
-
-    const iframe = document.getElementById("preview");
-    iframe.srcdoc = htmlBody;
-  </script>
+const emailEnd = "<" + "/body>" + "<" + "/html>";
+const htmlBody = emailStart + emailEnd;
+document.getElementById("preview").srcdoc = htmlBody;
+</script>
 </body>
 </html>
